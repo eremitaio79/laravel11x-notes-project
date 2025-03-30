@@ -15,19 +15,19 @@ class UsersTableSeeder extends Seeder
         // Cria alguns usuários para uso em testes.
         DB::table('users')->insert([
             [
-                'username' => 'admin',
+                'username' => 'admin@gmail.com',
                 'password' => bcrypt('123456'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'username' => 'user1',
+                'username' => 'user1@gmail.com',
                 'password' => bcrypt('123456'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => now(),
             ],
             [
-                'username' => 'user2',
+                'username' => 'user2@gmail.com',
                 'password' => bcrypt('123456'),
                 'created_at' => now(),
                 'updated_at' => now(),
