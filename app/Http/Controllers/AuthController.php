@@ -13,13 +13,11 @@ class AuthController extends Controller
         return view('login');
     }
 
-
     public function loginSubmit(Request $request)
     {
-        // dd($request->all());
         $request->validate(
             [
-                'text_username' => 'required',
+                'text_username' => 'required|email',
                 'text_password' => 'required|min:6|max:16',
             ],
             [
@@ -34,49 +32,20 @@ class AuthController extends Controller
         $username = $request->input('text_username');
         $password = $request->input('text_password');
 
-        // echo 'OK';
-
-        // Teste de conexão com o banco de dados.
-        // try {
-        //     DB::connection()->getPdo();
-        //     echo "Conexão com o banco de dados estabelecida com sucesso.";
-        // } catch (\PDOException $e) {
-        //     echo "Erro de conexão com o banco de dados: {$e->getMessage()}";
-        //     return;
-        // }
-        // echo '<p>FIM DO TESTE DE CONEXÃO COM O BANCO DE DADOS.</p>';
-
-        // Retorna todos os usuários cadastrados no banco de dados.
-        // $users = User::all()->toArray();
-        // $userModel = new User();
-        // $users = $userModel->all()->toArray();
-        // echo '<pre>';
-        // var_dump($users);
-        // echo '</pre>';
-
         // Verifica se o usuário existe no banco de dados.
         $user = User::where('username', $username)
-            ->where('deleted_at', NULL)
+            ->whereNull('deleted_at')
             ->first();
 
-        if(!$user) {
-            // echo "Usuário não encontrado.";
+        if (!$user || !password_verify($password, $user->password)) {
             return redirect()
                 ->back()
                 ->withInput()
-                ->with('loginError', 'O usuário não foi encontrado ou não existe.');
-        }
-
-        if(!password_verify($password, $user->password)) {
-            // echo "Senha inválida.";
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with('loginError', 'A senha informada está incorreta ou é inválida.');
+                ->with('loginError', 'Usuário ou senha incorretos.');
         }
 
         // Atualiza a coluna last_login do usuário.
-        $user->last_login = date('Y-m-d H:i:s');
+        $user->last_login = now();
         $user->save();
 
         // Coloca os dados do usuário na sessão.
@@ -85,23 +54,16 @@ class AuthController extends Controller
             'user_name' => $user->username,
             'user_last_login' => $user->last_login,
         ]);
-        echo "Usuário encontrado: {$user->username}";
 
-        echo '<pre>';
-        // var_dump($user);
-        echo 'Login realizado com sucesso.';
-        echo '</pre>';
+        return redirect()->route('/')
+            ->with('loginSuccess', 'Login realizado com sucesso!');
     }
-
 
     public function logout()
     {
-        // echo "Logout: aplicação finalizada.";
-
-        // Remove os dados do usuário da sessão.
         session()->forget(['user_id', 'user_name', 'user_last_login']);
 
         return redirect('/login')
-            ->with('logoutSuccess', 'Você encerrou o Notes com sucesso!');
+            ->with('logoutSuccess', 'Você encerrou a sessão com sucesso!');
     }
 }
