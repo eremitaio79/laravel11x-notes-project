@@ -67,7 +67,7 @@
                             document.addEventListener("DOMContentLoaded", function() {
                                 let alerta = document.getElementById("alertaErro");
                                 let barra = document.getElementById("barraProgresso");
-                                let duracao = 5000; // 5 segundos para fechar o alert.
+                                let duracao = 3000; // 3 segundos para fechar o alert.
                                 let interval = 100; // Atualiza a cada 100ms
 
                                 let largura = 0; // Inicia em 0%
@@ -110,7 +110,7 @@
                             document.addEventListener("DOMContentLoaded", function() {
                                 let alerta = document.getElementById("alertaSucesso");
                                 let barra = document.getElementById("barraProgresso");
-                                let duracao = 5000; // 5 segundos para fechar o alert.
+                                let duracao = 3000; // 3 segundos para fechar o alert.
                                 let interval = 100; // Atualiza a cada 100ms
 
                                 let largura = 0; // Inicia em 0%

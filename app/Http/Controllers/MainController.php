@@ -2,17 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class MainController extends Controller
 {
+    /**
+     * Exibe a página inicial.
+     */
     public function index()
     {
-        echo "Homepage";
+        // Carrega as notas do usuário da sessão.
+
+        // Retorna a view inicial com as notas.
+        return view('home');
     }
 
 
-    public function newNote() {
+    /**
+     * Exibe a página de criação de notas.
+     */
+    public function newNote()
+    {
         echo "Criando uma nova nota.";
     }
+
 }
