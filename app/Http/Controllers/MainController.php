@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class MainController extends Controller
 {
     public function index()
@@ -12,7 +10,14 @@ class MainController extends Controller
     }
 
 
-    public function newNote() {
+    public function newNote()
+    {
         echo "Criando uma nova nota.";
+    }
+
+
+    public function teste()
+    {
+        echo 'Teste de acesso à rota /teste.';
     }
 }

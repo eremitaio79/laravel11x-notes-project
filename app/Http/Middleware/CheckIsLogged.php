@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class VerificaSeUsuarioEstaLogado
+class CheckIsLogged
 {
     /**
      * Handle an incoming request.
@@ -15,13 +15,12 @@ class VerificaSeUsuarioEstaLogado
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Verifica se o usuário está logado.
-        if (!session('username')) {
-            // Se não estiver logado, redireciona para a página de login.
+        // Check if the user is logged in.
+        if(!session()->has('user_id')) {
+            // Redirect to the login page if not logged in.
             return redirect('/login');
         }
 
-        // Se estiver logado, continua com a requisição.
         return $next($request);
     }
 }

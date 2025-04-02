@@ -55,9 +55,10 @@ class AuthController extends Controller
             'user_last_login' => $user->last_login,
         ]);
 
-        return redirect()->route('/')
+        return redirect()->route('teste')
             ->with('loginSuccess', 'Login realizado com sucesso!');
     }
+
 
     public function logout()
     {
