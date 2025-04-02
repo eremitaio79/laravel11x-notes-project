@@ -18,7 +18,7 @@ class CheckIsNotLogged
         // Check if the user is not logged in.
         if(session()->has('user_id')) {
             // Redirect to the login page if not logged in.
-            return redirect('/teste');
+            return redirect('/');
         }
 
         return $next($request);

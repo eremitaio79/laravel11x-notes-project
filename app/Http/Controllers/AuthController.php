@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
+    /**
+     * Exibe a página de login.
+     */
     public function login()
     {
         return view('login');
@@ -55,11 +58,14 @@ class AuthController extends Controller
             'user_last_login' => $user->last_login,
         ]);
 
-        return redirect()->route('teste')
+        return redirect()->route('home')
             ->with('loginSuccess', 'Login realizado com sucesso!');
     }
 
 
+    /**
+     * Exibe a página de registro.
+     */
     public function logout()
     {
         session()->forget(['user_id', 'user_name', 'user_last_login']);
